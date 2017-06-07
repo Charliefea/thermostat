@@ -8,8 +8,8 @@ describe("Thermostat", function() {
   });
 
   it("should start at 20 degrees", function() {
-      expect(thermostat.temperature).toEqual(20);
-    });
+    expect(thermostat.temperature).toEqual(20);
+  });
 
   it("should increase temperature by 1", function() {
     thermostat.up(1);
@@ -22,8 +22,13 @@ describe("Thermostat", function() {
   });
 
   it("should prevent temperature's below 10 degrees", function() {
-   var thermostatlow = new Thermostat(10);
+    var thermostatlow = new Thermostat(10);
     expect(function() {thermostatlow.down(1)}).toThrowError('It is too cold!');
-    });
-
   });
+
+  it("has a maximum temperature of 25 degrees when in power saving mode", function() {
+    thermostat.powerSavingModeOn();
+    expect(function() {thermostat.up(6)}).toThrowError('PSM - max temp exceeded');
+  });
+
+});
