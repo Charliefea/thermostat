@@ -1,11 +1,13 @@
 function Thermostat(temperature = 20) {
   this.temperature = temperature;
-  this.powerSavingMode = false;
+  this.powerSavingMode = true;
 }
 
 Thermostat.prototype.up = function(temp) {
   if(this.powerSavingMode && this.temperature + temp > 25) {
     throw Error("PSM - max temp exceeded")
+  }else if (this.temperature + temp >32 ) {
+    throw Error("Max temp exceeded")
   }
   this.temperature += temp;
 }
@@ -19,4 +21,11 @@ Thermostat.prototype.down = function(temp) {
 
 Thermostat.prototype.powerSavingModeOn = function() {
   this.powerSavingMode = true;
+}
+
+Thermostat.prototype.powerSavingModeOff = function() {
+  this.powerSavingMode = false;
+}
+Thermostat.prototype.reset = function() {
+  this.temperature = 20;
 }

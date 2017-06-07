@@ -27,8 +27,21 @@ describe("Thermostat", function() {
   });
 
   it("has a maximum temperature of 25 degrees when in power saving mode", function() {
-    thermostat.powerSavingModeOn();
     expect(function() {thermostat.up(6)}).toThrowError('PSM - max temp exceeded');
   });
 
+  it("has a maximum temperature of 32 degrees when power saving mode is off ", function() {
+      thermostat.powerSavingModeOff();
+    expect(function() {thermostat.up(13)}).toThrowError('Max temp exceeded');
+  });
+
+  it("is in PSM at the start ", function() {
+    expect(thermostat.powerSavingMode).toEqual(true);
+  });
+
+  it("should reset the temperature to 20", function() {
+    thermostat.down(1);
+    thermostat.reset();
+    expect(thermostat.temperature).toEqual(20);
+  });
 });
