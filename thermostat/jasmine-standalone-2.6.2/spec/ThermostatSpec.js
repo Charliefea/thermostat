@@ -12,12 +12,18 @@ describe("Thermostat", function() {
     });
 
   it("should increase temperature by 1", function() {
-    thermostat.up();
+    thermostat.up(1);
     expect(thermostat.temperature).toEqual(21);
   });
 
   it("should decrease temperature by 1", function() {
-    thermostat.down();
+    thermostat.down(1);
     expect(thermostat.temperature).toEqual(19);
   });
+
+  it("should prevent temperature's below 10 degrees", function() {
+   var thermostatlow = new Thermostat(10);
+    expect(function() {thermostatlow.down(1)}).toThrowError('It is too cold!');
+    });
+
   });
